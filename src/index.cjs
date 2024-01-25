@@ -1,4 +1,10 @@
 const redux = require("redux");
+// middleware
+const applyMiddleware = redux.applyMiddleware
+
+const reduxLogger = require('redux-logger')
+const logger = reduxLogger.createLogger()
+
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
 const bindActionCreators = redux.bindActionCreators;
@@ -88,11 +94,11 @@ const rootReducer = combineReducers({
     iceCream: iceCreamReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("Initial state", store.getState());
 
 const unsubscribe = store.subscribe(() =>
-    console.log("Updated State", store.getState())
+   {}
 );
 
 const actions = bindActionCreators(
